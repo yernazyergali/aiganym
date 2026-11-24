@@ -29,3 +29,11 @@ $('#yes').onclick = () => {
   reply(`Да! ${pick.when}, ${pick.where.toLowerCase()}.`, 'Спасибо, это лучшая новость дня ♥');
 };
 $('#think').onclick = () => reply('Мне нужно подумать.', 'Конечно. Я подожду.');
+
+// Пока играет видео — песня на паузе
+let songWasPlaying = false;
+document.querySelectorAll('video').forEach(v => {
+  v.addEventListener('play', () => { songWasPlaying = !song.paused; song.pause(); });
+  const resume = () => { if (songWasPlaying) song.play().catch(() => {}); };
+  v.addEventListener('pause', resume); v.addEventListener('ended', resume);
+});
