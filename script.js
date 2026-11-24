@@ -24,15 +24,25 @@ $('#music').onclick = () => {
   $('#music').classList.toggle('off', !musicOn);
   if (musicOn) song.play().catch(() => {}); else song.pause();
 };
-// --- конверт ---
+// --- конверт: клапан → письмо выезжает → конверт уходит → открывается письмо ---
 $('#env').onclick = () => {
-  $('#env').classList.add('open');
+  const env = $('#env'); if (env.classList.contains('open')) return;
+  env.classList.add('open');
+  setTimeout(() => { env.classList.add('rise'); $('#envelope').classList.add('leaving'); }, 900);
+  setTimeout(() => env.classList.add('out'), 2500);
   setTimeout(() => {
     $('#envelope').classList.add('hidden');
     const l = $('#letter'); l.classList.remove('hidden'); l.classList.add('show');
-    window.scrollTo(0, 0); observe();
-  }, 1000);
+    window.scrollTo(0, 0); observe(); autoplayVideos();
+  }, 3300);
 };
+// --- видео: автозапуск без звука, пауза вне экрана ---
+function autoplayVideos() {
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) e.target.play().catch(() => {}); else e.target.pause();
+  }), { threshold: .35 });
+  document.querySelectorAll('video').forEach(v => { v.muted = true; io.observe(v); });
+}
 // --- появление блоков при прокрутке ---
 function observe() {
   const io = new IntersectionObserver(es => es.forEach(e => {
@@ -52,14 +62,6 @@ $('#yes').onclick = () => {
   const url = `https://t.me/${TELEGRAM_USERNAME}?text=${encodeURIComponent(text)}`;
   setTimeout(() => { window.location.href = url; }, 700);
 };
-
-// --- пока играет видео, песня на паузе ---
-let songWasPlaying = false;
-document.querySelectorAll('video').forEach(v => {
-  v.addEventListener('play', () => { songWasPlaying = !song.paused; song.pause(); });
-  const resume = () => { if (songWasPlaying && musicOn) song.play().catch(() => {}); };
-  v.addEventListener('pause', resume); v.addEventListener('ended', resume);
-});
 
 // --- падающие листья ---
 (function () {
