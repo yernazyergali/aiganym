@@ -6,83 +6,113 @@
 <title>Для Айганым</title>
 <meta name="description" content="Для тебя есть письмо. Включи звук и открой конверт.">
 <meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1b0f14">
 <meta property="og:title" content="Для Айганым">
 <meta property="og:description" content="Для тебя есть письмо. Включи звук и открой конверт.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="img/preview.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<canvas id="leaves" aria-hidden="true"></canvas>
+<div id="progress" aria-hidden="true"></div>
+<button id="music" class="music hidden" aria-label="Музыка вкл/выкл">♪</button>
 
-<!-- 1. Экран «Включи звук» -->
+<!-- 1. Включи звук -->
 <section id="gate" class="screen">
-  <p class="small">Айганым,</p>
+  <p class="eyebrow">Айганым,</p>
   <h1>Включи звук</h1>
-  <p>Для тебя есть письмо и песня. Сделай погромче, выключи беззвучный режим и, когда будешь готова, нажми кнопку.</p>
+  <p class="soft">Для тебя есть письмо и песня.<br>Сделай погромче, убери беззвучный режим<br>и, когда будешь готова, нажми кнопку.</p>
   <button id="ready" class="btn">Я готова</button>
 </section>
 
 <!-- 2. Конверт -->
 <section id="envelope" class="screen hidden">
-  <p class="small">Для Айганым</p>
+  <p class="eyebrow">Для Айганым</p>
   <button id="env" class="env" aria-label="Открыть конверт">
-    <span class="flap"></span><span class="seal">♥</span>
+    <span class="paper"></span>
+    <span class="pocket"></span>
+    <span class="flap"></span>
+    <span class="seal">♥</span>
   </button>
-  <p class="hint">С любовью…<br>Нажми, чтобы открыть</p>
+  <p class="hint">С любовью…<br><em>Нажми, чтобы открыть</em></p>
 </section>
 
 <!-- 3. Письмо -->
 <main id="letter" class="hidden">
-  <p class="small">Письмо</p>
-  <h2>Айганым,</h2>
-  <p>я хочу сказать тебе несколько слов. Не потому что надо, а потому что не смог промолчать.</p>
+  <header class="head reveal">
+    <p class="eyebrow">Письмо</p>
+    <h2>Айганым,</h2>
+    <p class="intro">я долго думал, с чего начать, и понял: лучше просто сказать, как есть. Здесь несколько кадров, в которых я вижу тебя, и несколько слов о том, что я в них замечаю.</p>
+    <span class="orn">❦</span>
+  </header>
 
-  <!-- Фото лежат в img/. Видео: положи mp4 в videos/ и скопируй блок <figure class="video"> ниже -->
-  <figure><img src="img/poppies.jpg" alt="Айганым среди маков на фоне гор" loading="lazy"></figure>
-  <p class="lead">Маки, горы и ты посередине.</p>
-  <p>Весна старалась, чтобы быть достойным фоном.</p>
+  <article class="reveal">
+    <figure><img src="img/poppies.jpg" alt="Айганым среди маков на фоне гор" loading="lazy"></figure>
+    <p class="lead">Маки, горы и ты посередине.</p>
+    <p>Всё вокруг яркое и громкое, но спокойнее всего почему-то смотреть на тебя.</p>
+  </article>
 
-  <figure><img src="img/hydrangea.jpg" alt="Айганым среди гортензий" loading="lazy"></figure>
-  <p class="lead">Ты выглядишь так, будто осень придумали ради этого кадра.</p>
-  <p>Золотистый свет, цветы вокруг, а взгляд всё равно только на тебе.</p>
+  <article class="reveal">
+    <figure><img src="img/hydrangea.jpg" alt="Айганым среди гортензий" loading="lazy"></figure>
+    <p class="lead">Даже осень рядом с тобой старается.</p>
+    <p>Золотой свет, пыльно-розовые цветы и лёгкая улыбка. Такой кадр хочется оставить себе.</p>
+  </article>
 
-  <figure><img src="img/bouquet.jpg" alt="Айганым с огромным букетом пионов в ресторане" loading="lazy"></figure>
-  <p class="lead">Тебе идут цветы. И красивые вечера.</p>
-  <p>Поэтому я и хочу пригласить тебя на ужин.</p>
+  <article class="reveal">
+    <figure><img src="img/bouquet.jpg" alt="Айганым с огромным букетом пионов в ресторане" loading="lazy"></figure>
+    <p class="lead">Тебе идут цветы и красивые вечера.</p>
+    <p>Тёплый свет, облако пионов в руках. Мне кажется, каждый твой ужин должен выглядеть именно так.</p>
+  </article>
 
-  <figure><img src="img/grape.jpg" alt="Айганым с виноградными листьями" loading="lazy"></figure>
-  <p class="lead">Ты умеешь дурачиться и оставаться красивой.</p>
-  <p>С тобой, кажется, не бывает скучно.</p>
+  <article class="reveal">
+    <figure class="video"><video src="videos/pingpong.mp4" poster="img/pingpong.jpg" controls playsinline preload="metadata"></video></figure>
+    <p class="lead">В тебе есть азарт.</p>
+    <p>Ракетка у лица, шаг в сторону, взгляд «сейчас обыграю». Я готов проиграть, лишь бы услышать, как ты смеёшься.</p>
+  </article>
 
-  <figure class="video"><video src="videos/pingpong.mp4" poster="img/pingpong.jpg" controls playsinline preload="metadata"></video></figure>
-  <p class="lead">А ещё ты азартная.</p>
-  <p>Ракетка, улыбка и взгляд «сейчас я тебя обыграю». Я заранее согласен проиграть.</p>
+  <article class="reveal">
+    <figure><img src="img/grape.jpg" alt="Айганым с виноградными листьями" loading="lazy"></figure>
+    <p class="lead">Ты умеешь быть лёгкой.</p>
+    <p>Живой, настоящей, с зелёным листом у щеки. С тобой, кажется, не бывает скучно.</p>
+  </article>
 
-  <figure><img src="img/horse.jpg" alt="Айганым гладит белую лошадь" loading="lazy"></figure>
-  <p class="lead">В тебе есть нежность.</p>
-  <p>Ты смотришь на мир спокойно и тепло. Рядом с этим хочется замедлиться.</p>
+  <article class="reveal">
+    <figure><img src="img/horse.jpg" alt="Айганым гладит белую лошадь" loading="lazy"></figure>
+    <p class="lead">В тебе есть нежность.</p>
+    <p>Та самая, которую не нужно доказывать. Тихий взгляд, спокойное «я рядом». Рядом с этим хочется замедлиться.</p>
+  </article>
 
-  <figure><img src="img/sky.jpg" alt="Айганым на фоне неба, ветер в волосах" loading="lazy"></figure>
-  <p class="lead">Ветер в волосах, небо над головой, и всё как будто задумано заранее.</p>
-  <p>Ты красива так легко, что даже не замечаешь.</p>
+  <article class="reveal">
+    <figure><img src="img/sky.jpg" alt="Айганым на фоне неба, ветер в волосах" loading="lazy"></figure>
+    <p class="lead">Ветер в волосах, небо над головой.</p>
+    <p>Ты смотришь в камеру так, будто знаешь что-то, чего не знаю я. Мне очень хочется узнать.</p>
+  </article>
 
-  <figure><img src="img/pumpkins.jpg" alt="Айганым в белом кардигане среди тыкв" loading="lazy"></figure>
-  <p class="lead">Уютная осень в твоём исполнении.</p>
-  <p>Тёплый свет, тыквы и ты. Хочется остановить кадр.</p>
+  <article class="reveal">
+    <figure><img src="img/pumpkins.jpg" alt="Айганым в белом кардигане среди тыкв" loading="lazy"></figure>
+    <p class="lead">Тёплая осень в белом.</p>
+    <p>Вечерние огни, тыквы и ты, задумавшаяся о чём-то своём. Я бы многое отдал, чтобы узнать, о чём.</p>
+  </article>
 
-  <figure class="video"><video src="videos/gym.mp4" poster="img/gym.jpg" controls playsinline preload="metadata"></video></figure>
-  <p class="lead">В тебе есть спокойная сила.</p>
-  <p>Рядом с такой хочется быть лучше.</p>
+  <article class="reveal">
+    <figure class="video"><video src="videos/gym.mp4" poster="img/gym.jpg" controls playsinline preload="metadata"></video></figure>
+    <p class="lead">И в тебе есть собранность.</p>
+    <p>Спокойный взгляд и ровная осанка, будто всё под контролем. Рядом с такой хочется становиться лучше.</p>
+  </article>
 
-  <!-- Пример видео (раскомментируй, когда появится файл):
-  <figure class="video"><video src="videos/clip1.mp4" poster="img/poppies.jpg" controls playsinline preload="metadata"></video></figure>
-  <p class="lead">Подпись к видео.</p>
-  -->
+  <div class="closing reveal">
+    <span class="orn">❦</span>
+    <p>Я не мастер красивых слов, зато умею замечать. И я хочу, чтобы один вечер был таким же красивым, как ты.</p>
+  </div>
 
-  <section id="invite" class="invite">
-    <p class="small">Приглашение</p>
-    <h2>Айганым, пойдём на ужин?</h2>
-    <p>Я хочу провести с тобой вечер: поговорить, посмеяться и узнать тебя лучше. Выбери, как тебе удобно.</p>
+  <section id="invite" class="invite reveal">
+    <p class="eyebrow">Приглашение</p>
+    <h2>Айганым, поужинаем вместе?</h2>
+    <p class="soft">Один тёплый вечер, хороший разговор и никакой спешки. Выбери, как тебе удобнее, и напиши мне в Telegram.</p>
 
     <p class="label">Когда</p>
     <div class="chips" data-group="when">
