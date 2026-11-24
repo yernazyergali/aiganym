@@ -32,3 +32,4 @@ figure img{width:100%;display:block;border-radius:12px;min-height:240px;backgrou
 .thanks{margin-top:20px;color:var(--accent)}
 .sign{margin-top:32px;font-size:1.3rem;font-style:italic}
 .tiny{font-size:.8rem;opacity:.7}
+figure.video video{width:100%;display:block;border-radius:12px;background:#000;max-height:80svh}
