@@ -33,20 +33,7 @@ em{font-family:var(--serif);font-size:1.15em}
 .btn:active{transform:scale(.97)}
 .btn.ghost{background:transparent;color:var(--ink);border:1px solid rgba(216,178,122,.6);box-shadow:none}
 
-/* Конверт */
-.env{position:relative;width:min(320px,82vw);aspect-ratio:3/2;border:0;background:none;padding:0;cursor:pointer;
-  animation:float 4s ease-in-out infinite;filter:drop-shadow(0 24px 30px rgba(0,0,0,.45));perspective:900px}
-.env .paper,.env .pocket{position:absolute;inset:0;border-radius:6px}
-.env .paper{background:#f3e4d3}
-.env .pocket{clip-path:none;background:linear-gradient(to top right,#e8d3bd 49.5%,transparent 50%) left/50% 100% no-repeat,linear-gradient(to top left,#dcc4ac 49.5%,transparent 50%) right/50% 100% no-repeat}
-.env .flap{position:absolute;left:0;right:0;top:0;height:62%;background:linear-gradient(#f7ead9,#e9d2ba);border-radius:6px 6px 0 0;
-  clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform .9s cubic-bezier(.6,0,.2,1)}
-.env .seal{position:absolute;left:50%;top:56%;transform:translate(-50%,-50%);width:50px;height:50px;border-radius:50%;display:grid;place-items:center;
-  background:radial-gradient(circle at 35% 30%,#d95a6e,#8f2036);color:#ffd9de;font-size:1.3rem;box-shadow:0 4px 10px rgba(0,0,0,.35);transition:opacity .4s}
-.env.open .flap{transform:rotateX(180deg)}
-.env.open .seal{opacity:0}
 .hint{color:var(--gold);margin-top:28px}
-@keyframes float{50%{transform:translateY(-10px)}}
 
 /* Письмо */
 #letter{max-width:600px;margin:0 auto;padding:72px 24px 96px}
@@ -84,23 +71,61 @@ article p:not(.lead){color:var(--muted);margin:0 auto;max-width:30em}
 
 .reveal{opacity:0;transform:translateY(26px);transition:opacity 1s ease,transform 1s ease}
 .reveal.in{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.env{animation:none}#leaves{display:none}}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}#leaves{display:none}}
 
 .details{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:12px;margin:22px 0 8px;font:italic 500 1.6rem var(--serif);color:var(--gold)}
 .details i{font-style:normal;opacity:.6}
 
-/* Письмо выезжает из конверта */
-.env .paper{z-index:1}.env .pocket{z-index:3}.env .flap{z-index:4}.env .seal{z-index:5}
-.env .sheet{position:absolute;left:6%;right:6%;top:8%;height:84%;z-index:2;background:#fffaf2;border-radius:4px;padding:14px 16px;
-  display:flex;flex-direction:column;gap:9px;box-shadow:0 2px 10px rgba(0,0,0,.25);transition:transform 1.3s cubic-bezier(.3,.7,.2,1)}
-.env .sheet b{font:italic 500 1.2rem var(--serif);color:#6b2a3a}
-.env .sheet u{display:block;height:2px;background:rgba(107,42,58,.2);border-radius:2px}
-.env{transition:opacity .9s ease,transform .9s ease}
-.env.open{animation:none}
-.env.open .flap{z-index:1;transition:transform .9s cubic-bezier(.6,0,.2,1),z-index 0s .45s}
-.env.rise .sheet{transform:translateY(-84%)}
-.env.out{opacity:0;transform:translateY(80px) scale(.94)}
-#envelope .hint,#envelope .eyebrow{transition:opacity .5s}
-#envelope.leaving .hint,#envelope.leaving .eyebrow{opacity:0}
 .ok{margin:26px 0 0;font:italic 500 1.25rem var(--serif);color:var(--muted)}
 figure.video video{pointer-events:none}
+
+/* ===== Охапка листьев ===== */
+#autumn{overflow:hidden}
+#autumn .hint,#autumn .eyebrow{transition:opacity .6s}
+#autumn.leaving .hint,#autumn.leaving .eyebrow{opacity:0}
+.pile{position:relative;width:min(340px,86vw);aspect-ratio:1/.85;margin:6px auto 0}
+.lf{position:absolute;left:var(--x);top:var(--y);width:var(--w);aspect-ratio:1;z-index:var(--z);padding:0;border:0;background:none;
+  transform:translate(-50%,-50%) rotate(var(--r));-webkit-tap-highlight-color:transparent;
+  transition:transform 1.5s cubic-bezier(.2,.65,.25,1) var(--dl,0s),opacity 1.3s ease var(--dl,0s)}
+.lf svg{display:block;width:100%;height:100%;overflow:visible;fill:var(--c);transform-origin:50% 92%;
+  filter:drop-shadow(0 6px 6px rgba(0,0,0,.35));animation:sway var(--sd,5s) ease-in-out var(--d,0s) infinite alternate}
+@keyframes sway{from{transform:rotate(-3deg)}to{transform:rotate(3deg)}}
+.lf.rustle svg{animation:rustle .6s ease}
+@keyframes rustle{25%{transform:rotate(-14deg) translateY(-5%)}60%{transform:rotate(9deg)}}
+.lf.fly{transform:translate(calc(-50% + var(--fx)),calc(-50% + var(--fy))) rotate(var(--fr));opacity:0}
+
+.key{--x:50%;--y:40%;--w:38%;--z:100;--r:-8deg;cursor:pointer;
+  transition:transform 1.3s cubic-bezier(.3,.7,.2,1),opacity 1s ease}
+.key svg{animation:sway 3s ease-in-out infinite alternate,glow 2.4s ease-in-out infinite}
+.key text{font:20px var(--serif);fill:#8f2036;text-anchor:middle;dominant-baseline:middle}
+.key::after{content:"";position:absolute;inset:8%;border-radius:50%;border:1px solid rgba(255,214,150,.7);pointer-events:none;
+  animation:ring 2.4s ease-out infinite}
+@keyframes glow{50%{filter:drop-shadow(0 0 16px rgba(255,205,130,.9)) drop-shadow(0 6px 6px rgba(0,0,0,.35))}}
+@keyframes ring{from{transform:scale(.6);opacity:.9}to{transform:scale(1.55);opacity:0}}
+.key:focus-visible{outline:2px solid var(--gold);outline-offset:6px;border-radius:50%}
+.key.lift{transform:translate(-50%,-50%) translateY(-22%) rotate(0deg) scale(2.2)}
+.key.lift::after{display:none}
+.key.gone{opacity:0;transform:translate(-50%,-50%) translateY(-30%) rotate(6deg) scale(4)}
+
+/* ===== Текст по словам, переливающимися цветами ===== */
+:root{--p1:#ffd59e;--p2:#f08a7a;--p3:#e6a3ac}
+article:nth-of-type(4n+1){--p1:#ffd59e;--p2:#f29e7c;--p3:#e6a3ac}
+article:nth-of-type(4n+2){--p1:#f6c177;--p2:#eb6f92;--p3:#f9d5bb}
+article:nth-of-type(4n+3){--p1:#ffb38a;--p2:#ffe08f;--p3:#d98aa8}
+article:nth-of-type(4n+4){--p1:#f7d08a;--p2:#e8a87c;--p3:#c98bb0}
+.invite{--p1:#ffe2a8;--p2:#f4a3a8;--p3:#f2b56b}
+.w{display:inline-block}
+[data-split=color] .w{padding:0 .08em;margin:0 -.08em;
+  background:linear-gradient(90deg,var(--p1),var(--p2),var(--p3),var(--p1));background-size:8em 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;
+  animation:flow 7s linear infinite;animation-delay:calc(var(--i) * -.35s)}
+@keyframes flow{to{background-position:8em 0}}
+.reveal .w{opacity:0;transform:translateY(.45em) rotate(2deg);
+  transition:opacity .8s ease,transform .9s cubic-bezier(.2,.7,.2,1);transition-delay:min(calc(var(--i) * 50ms + .25s),2.2s)}
+.reveal.in .w{opacity:1;transform:none}
+.sign .w{padding:0 .15em}
+
+@media (prefers-reduced-motion:reduce){
+  .w,.reveal .w{opacity:1;transform:none;transition:none;animation:none!important}
+  .lf svg,.key::after{animation:none}
+}
