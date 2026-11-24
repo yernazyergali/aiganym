@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Для Айганым</title>
+<meta name="description" content="Для тебя есть письмо. Включи звук и открой конверт.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Для Айганым">
+<meta property="og:description" content="Для тебя есть письмо. Включи звук и открой конверт.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="img/preview.jpg">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- 1. Экран «Включи звук» -->
+<section id="gate" class="screen">
+  <p class="small">Айганым,</p>
+  <h1>Включи звук</h1>
+  <p>Для тебя есть письмо и песня. Сделай погромче, выключи беззвучный режим и, когда будешь готова, нажми кнопку.</p>
+  <button id="ready" class="btn">Я готова</button>
+</section>
+
+<!-- 2. Конверт -->
+<section id="envelope" class="screen hidden">
+  <p class="small">Для Айганым</p>
+  <button id="env" class="env" aria-label="Открыть конверт">
+    <span class="flap"></span><span class="seal">♥</span>
+  </button>
+  <p class="hint">С любовью…<br>Нажми, чтобы открыть</p>
+</section>
+
+<!-- 3. Письмо -->
+<main id="letter" class="hidden">
+  <p class="small">Письмо</p>
+  <h2>Айганым,</h2>
+  <p>я хочу сказать тебе несколько слов. Не потому что надо, а потому что не смог промолчать.</p>
+
+  <!-- Фото: положи файлы в img/ с такими именами (jpg) и поправь подписи -->
+  <figure><img src="img/photo1.jpg" alt="Айганым, фото 1"></figure>
+  <p class="lead">В тебе есть спокойная сила.</p>
+  <p>Рядом с такой хочется быть лучше.</p>
+
+  <figure><img src="img/photo2.jpg" alt="Айганым, фото 2"></figure>
+  <p class="lead">С твоей улыбкой вокруг становится тише.</p>
+  <p>Самое тёплое в кадре — ты.</p>
+
+  <figure><img src="img/photo3.jpg" alt="Айганым, фото 3"></figure>
+  <p class="lead">Ты оборачиваешься, и день сразу светлее.</p>
+  <p>С тобой, кажется, не бывает скучно.</p>
+
+  <figure><img src="img/photo4.jpg" alt="Айганым, фото 4"></figure>
+  <p class="lead">Любой закат лучше, когда есть с кем на него смотреть.</p>
+  <p>Поэтому я и пишу тебе это письмо.</p>
+
+  <section id="invite" class="invite">
+    <p class="small">Приглашение</p>
+    <h2>Айганым, пойдём на ужин?</h2>
+    <p>Я хочу провести с тобой вечер: поговорить, посмеяться и узнать тебя лучше. Выбери, как тебе удобно.</p>
+
+    <p class="label">Когда</p>
+    <div class="chips" data-group="when">
+      <button class="chip">Суббота</button><button class="chip">Воскресенье</button><button class="chip">Другой день</button>
+    </div>
+
+    <p class="label">Куда</p>
+    <div class="chips" data-group="where">
+      <button class="chip">Ужин</button><button class="chip">Кофе</button><button class="chip">Закат и прогулка</button>
+    </div>
+
+    <div class="actions">
+      <button id="yes" class="btn">Ответить Ерназу</button>
+      <button id="think" class="btn ghost">Мне нужно подумать</button>
+    </div>
+    <p id="thanks" class="thanks hidden"></p>
+    <p class="sign">Твой Ерназ</p>
+    <p class="tiny">Если ты не хочешь продолжать, просто закрой страницу. Я пойму.</p>
+  </section>
+</main>
+
+<audio id="song" src="song.mp3" loop preload="auto"></audio>
+<script src="script.js"></script>
+</body>
+</html>
