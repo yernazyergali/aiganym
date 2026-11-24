@@ -3,7 +3,6 @@ const TELEGRAM_USERNAME = "yyernaz"; // ответ откроется в Telegra
 // =====================
 const $ = s => document.querySelector(s);
 const song = $('#song');
-const pick = {};
 let musicOn = true;
 
 // --- музыка: плавное нарастание ---
@@ -46,23 +45,13 @@ addEventListener('scroll', () => {
   const h = document.documentElement; const m = h.scrollHeight - innerHeight;
   $('#progress').style.width = (m > 0 ? h.scrollTop / m * 100 : 0) + '%';
 }, { passive: true });
-// --- выбор ---
-document.querySelectorAll('.chips').forEach(g => g.addEventListener('click', e => {
-  const c = e.target.closest('.chip'); if (!c) return;
-  g.querySelectorAll('.chip').forEach(x => x.classList.remove('on'));
-  c.classList.add('on'); pick[g.dataset.group] = c.textContent;
-}));
-function reply(text, thanks) {
-  $('#thanks').textContent = thanks; $('#thanks').classList.remove('hidden');
-  if (!text) return;
+// --- ответ в Telegram ---
+$('#yes').onclick = () => {
+  $('#thanks').textContent = 'Спасибо ♥ Открываю Telegram…'; $('#thanks').classList.remove('hidden');
+  const text = 'Ерназ, да, конечно, в силе ♥ Четверг, 19:00, Renee.';
   const url = `https://t.me/${TELEGRAM_USERNAME}?text=${encodeURIComponent(text)}`;
   setTimeout(() => { window.location.href = url; }, 700);
-}
-$('#yes').onclick = () => {
-  if (!pick.when || !pick.where) return reply('', 'Выбери, пожалуйста, когда и куда ♥');
-  reply(`Ерназ, я открыла твоё письмо ♥ Да, пойдём. ${pick.when}, формат: ${pick.where.toLowerCase()}.`, 'Спасибо, это лучшая новость дня. Открываю Telegram…');
 };
-$('#think').onclick = () => reply('Ерназ, спасибо за письмо ♥ Мне нужно немного подумать.', 'Конечно. Я подожду. Открываю Telegram…');
 
 // --- пока играет видео, песня на паузе ---
 let songWasPlaying = false;
